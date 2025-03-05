@@ -1,0 +1,7 @@
+bin/
+obj/
+vs/
+vs-code/
+vscode/
+*.env
+!*.env.example
