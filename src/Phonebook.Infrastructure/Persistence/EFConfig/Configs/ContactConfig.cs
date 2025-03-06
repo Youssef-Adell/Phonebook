@@ -23,7 +23,7 @@ public class ContactConfig : IEntityTypeConfiguration<Contact>
 
         /*
         When creating a GIN index with gin_trgm_ops operator:
-            1) a trigram for each value in the indexed column is created:
+            1) trigrams are created for each value in the indexed column:
                 - Example: "hello" → {" h", " he", "hel", "ell", "llo", "lo "}
 
             2) a GIN Index is created:
