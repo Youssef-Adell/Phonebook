@@ -1,0 +1,27 @@
+services:
+  webapi:
+    build: 
+      context: . # To allow the Dockerfile to access all solution files (When we use COPY commands in the Dockerfile, paths are relative to this context)
+      dockerfile: src/Phonebook.API/Dockerfile
+    image: phonebook/webapi:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development # To enable Swagger UI
+      - DB_CONNECTION_STRING=Server=postgres;Port=5432;Database=phonebook;User Id=pgadmin;Password=pgadmin
+    ports:
+      - 5000:8080
+    depends_on:
+      - postgres
+    
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=pgadmin
+      - POSTGRES_PASSWORD=pgadmin
+      - POSTGRES_DB=phonebook
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:

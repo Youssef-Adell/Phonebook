@@ -14,8 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    // options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
-    options.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=Password123;Database=phonebookDb");
+    options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
 });
 
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
