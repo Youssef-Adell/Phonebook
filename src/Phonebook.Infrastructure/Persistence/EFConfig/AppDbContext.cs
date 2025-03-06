@@ -10,4 +10,11 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Contact> Contacts { get; set; }
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.HasPostgresExtension("pg_trgm");
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+    }
 }
