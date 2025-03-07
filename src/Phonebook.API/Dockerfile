@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 # Copy project files and restore first to take advantage of docker layer caching (This avoids re-downloading and restoring all the NuGet packages in future builds)
-COPY src/Phonebook.sln ./
+COPY src/PhoneBook.sln ./
 COPY src/Phonebook.Domain/Phonebook.Domain.csproj Phonebook.Domain/
 COPY src/Phonebook.Application/Phonebook.Application.csproj Phonebook.Application/
 COPY src/Phonebook.Infrastructure/Phonebook.Infrastructure.csproj Phonebook.Infrastructure/
