@@ -50,8 +50,10 @@ export class ContactListComponent implements OnInit {
       };
 
       this.contacts.data.unshift(createdContact);
-      this.contacts.data.pop();
       this.contacts.metadata.totalItems++;
+      if(this.contacts.data.length > this.contacts.metadata.pageSize){
+        this.contacts.data.pop();
+      }
     })
   }
 
