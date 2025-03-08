@@ -1,0 +1,100 @@
+<div class="container mt-4">
+  <!-- Search Bar -->
+  <div class="mb-3">
+    <form (submit)="searchContacts()" class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="search"
+        placeholder="Search contacts..."
+        name="search"
+      />
+      <button type="submit" class="btn btn-outline-dark">Search</button>
+    </form>
+  </div>
+
+  <!-- Create Form -->
+  <form (submit)="createContact()" class="mb-4">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        [(ngModel)]="newContact.name"
+        placeholder="Name"
+        required
+      />
+      <input
+        type="email"
+        class="form-control"
+        name="email"
+        [(ngModel)]="newContact.email"
+        placeholder="Email"
+        required
+      />
+      <input
+        type="text"
+        class="form-control"
+        name="phoneNumber"
+        [(ngModel)]="newContact.phoneNumber"
+        placeholder="Phone"
+        required
+      />
+      <button type="submit" class="btn btn-dark">Create</button>
+    </div>
+  </form>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border text-primary"></div>
+  </div>
+
+  <!-- Contact Table -->
+  <div class="table-responsive" *ngIf="!loading">
+    <table class="table table-striped border">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contact of contacts.data">
+          <td>{{ contact.name }}</td>
+          <td>{{ contact.email }}</td>
+          <td>{{ contact.phoneNumber }}</td>
+          <td>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              (click)="deleteContact(contact.id!)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <nav *ngIf="getTotalPages() > 1">
+    <ul class="pagination flex justify-content-center align-items-center">
+      <!-- Previous Page Button -->
+      <li class="page-item" [class.disabled]="!hasPreviousPage()">
+        <button class="page-link" (click)="loadPreviousPage()">Prev</button>
+      </li>
+
+      <!-- Page Numbers -->
+      <li class="page-item px-2">
+        {{ contacts.metadata.currentPage }} / {{ getTotalPages() }}
+      </li>
+
+      <!-- Next Page Button -->
+      <li class="page-item" [class.disabled]="!hasNextPage()">
+        <button class="page-link" (click)="loadNextPage()">Next</button>
+      </li>
+    </ul>
+  </nav>
+</div>
